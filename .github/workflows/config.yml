@@ -4,8 +4,8 @@ on:
     branches:
       - main
 env:
-  tf_version: 'latest'
-  tg_version: 'latest'
+  tf_version: '1.4.6'
+  tg_version: '0.46.3'
   working_dir: './multi-lxc'
 
 jobs:
