@@ -7,3 +7,16 @@ variable "lxc_containers" {
     rootfs_size     = string
   }))
 }
+
+variable "pm_api_url" {
+  description = "Proxmox API URL"
+  default     = null
+}
+
+variable "pm_api_token_secret" {
+  default     = null
+}
+
+variable "pm_api_token_id" {
+  default     = null
+}
