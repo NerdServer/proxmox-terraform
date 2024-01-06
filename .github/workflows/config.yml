@@ -38,6 +38,7 @@ jobs:
             proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
             proxmox_api_url: op://secrets/Terraform/host
             repository: op://secrets/Github Terraform PAT/password
+            pat: op://secrets/Github Terraform PAT/password
     
       
        
@@ -58,7 +59,9 @@ jobs:
             TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
             TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-        
+            TF_VAR_repo: ${{ env.repository }}
+            TF_VAR_pat: ${{ env.pat }}
+
       
       - name: 'Terragrunt Plan'
         uses: the-commons-project/terragrunt-github-actions@master
@@ -77,4 +80,6 @@ jobs:
             TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
             TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+            TF_VAR_repo: ${{ env.repository }}
+            TF_VAR_pat: ${{ env.pat }}
        

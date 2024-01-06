@@ -43,3 +43,11 @@ variable "ssh_public_keys" {
     default     = null
 }
 
+variable "repo" {
+    type        = string
+    default     = null
+}
+variable "pat" {
+    type        = string
+    default     = null
+}
