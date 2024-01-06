@@ -1,0 +1,116 @@
+name: Terraform CI/CD
+on:
+  push:
+    branches:
+      - main
+env:
+    tf_version: 'latest'
+    tg_version: 'latest'
+    tf_working_dir: './multi-lxc'
+
+jobs:
+  deploy:
+    runs-on: "self-hosted"  # (optional) name of the runner labels, groups
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install 1Password CLI
+        uses: 1password/install-cli-action@v1
+
+      - name: Configure 1Password Service Account
+        uses: 1password/load-secrets-action/configure@v1
+        with:
+          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Load Terraform Credentials
+        id: load-terraform-credentials
+        uses: 1password/load-secrets-action@v1
+        with:
+            export-env: True
+        env:
+            ssh_password: op://secrets/Terraform/ssh_password
+            ssh_user: op://secrets/Terraform/ssh_user
+            ciuser: op://secrets/Terraform/ciuser
+            cipassword: op://secrets/Terraform/cipassword
+            ssh_pub_key: op://secrets/Terraform/ssh_pub_key
+            proxmox_api_token_id: op://secrets/Terraform/username
+            proxmox_api_token_secret: op://secrets/Terraform/password
+            proxmox_api_url: op://secrets/Terraform/host
+    
+      - name: 'Terragrunt Format'
+        uses: the-commons-project/terragrunt-github-actions@master
+        with:
+          tf_actions_version: ${{ env.tf_version }}
+          tg_actions_version: ${{ env.tg_version }}
+          tf_actions_binary: 'terraform'
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          tf_actions_comment: true
+        env:
+            PKR_VAR_ssh_password: ${{ env.ssh_password }}
+            PKR_VAR_ssh_user: ${{ env.ssh_user }}
+            PKR_VAR_ciuser: ${{ env.ciuser }}
+            PKR_VAR_cipassword: ${{ env.cipassword }}
+            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
+            PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
+            PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
+            PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+
+
+       
+      - name: 'Terragrunt Init'
+        uses: the-commons-project/terragrunt-github-actions@master
+        with:
+          tf_actions_version: ${{ env.tf_version }}
+          tg_actions_version: ${{ env.tg_version }}
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          tf_actions_comment: true
+        env:
+            PKR_VAR_ssh_password: ${{ env.ssh_password }}
+            PKR_VAR_ssh_user: ${{ env.ssh_user }}
+            PKR_VAR_ciuser: ${{ env.ciuser }}
+            PKR_VAR_cipassword: ${{ env.cipassword }}
+            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
+            PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
+            PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
+            PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+        
+      - name: 'Terragrunt Validate'
+        uses: the-commons-project/terragrunt-github-actions@master
+        with:
+          tf_actions_version: ${{ env.tf_version }}
+          tg_actions_version: ${{ env.tg_version }}
+          tf_actions_binary: 'terraform'
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          tf_actions_comment: true
+        env:
+            PKR_VAR_ssh_password: ${{ env.ssh_password }}
+            PKR_VAR_ssh_user: ${{ env.ssh_user }}
+            PKR_VAR_ciuser: ${{ env.ciuser }}
+            PKR_VAR_cipassword: ${{ env.cipassword }}
+            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
+            PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
+            PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
+            PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+      
+      - name: 'Terragrunt Plan'
+        uses: the-commons-project/terragrunt-github-actions@master
+        with:
+          tf_actions_version: ${{ env.tf_version }}
+          tg_actions_version: ${{ env.tg_version }}
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          tf_actions_comment: true
+        env:
+            PKR_VAR_ssh_password: ${{ env.ssh_password }}
+            PKR_VAR_ssh_user: ${{ env.ssh_user }}
+            PKR_VAR_ciuser: ${{ env.ciuser }}
+            PKR_VAR_cipassword: ${{ env.cipassword }}
+            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
+            PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
+            PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
+            PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+       
