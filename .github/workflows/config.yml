@@ -4,24 +4,30 @@ on:
     branches:
       - main
 env:
-    tf_version: 'latest'
-    tg_version: 'latest'
-    tf_working_dir: './multi-lxc'
+    working-directory: './multi-lxc'
+    ssh_password: op://secrets/Terraform/ssh_password
+    ssh_user: op://secrets/Terraform/ssh_user
+    ciuser: op://secrets/Terraform/ciuser
+    cipassword: op://secrets/Terraform/cipassword
+    ssh_pub_key: op://secrets/Terraform/ssh_pub_key
+    proxmox_api_token_id: op://secrets/ProxmoxAPI/username
+    proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
+    proxmox_api_url: op://secrets/Terraform/host
+    minio_access_key: op://secrets/Terraform/minio_access_key
+    minio_secret_key: op://secrets/Terraform/minio_secret_key
+    minio_endpoint: op://secrets/Terraform/minio_endpoint
 
 jobs:
   deploy:
     runs-on: "self-hosted"  # (optional) name of the runner labels, groups
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install 1Password CLI
-        uses: 1password/install-cli-action@v1
-
-      - name: Configure 1Password Service Account
-        uses: 1password/load-secrets-action/configure@v1
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v3
+      - uses: 1password/install-cli-action@v1
+      - uses: 1password/load-secrets-action/configure@v1
         with:
-          #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+        export-env: True
+        #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           connect-host: ${{ secrets.OP_CONNECT_HOST }}
           connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
 
@@ -30,92 +36,20 @@ jobs:
         uses: 1password/load-secrets-action@v1
         with:
             export-env: True
-        env:
-            ssh_password: op://secrets/Terraform/ssh_password
-            ssh_user: op://secrets/Terraform/ssh_user
-            ciuser: op://secrets/Terraform/ciuser
-            cipassword: op://secrets/Terraform/cipassword
-            ssh_pub_key: op://secrets/Terraform/ssh_pub_key
-            proxmox_api_token_id: op://secrets/ProxmoxAPI/username
-            proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
-            proxmox_api_url: op://secrets/Terraform/host
-            minio_access_key: op://secrets/Terraform/minio_access_key
-            minio_secret_key: op://secrets/Terraform/minio_secret_key
-            minio_endpoint: op://secrets/Terraform/minio_endpoint
+    
 
       - name: 'Terragrunt Init'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false      
-          args: '-backend-config="TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}" -backend-config="TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}"'
-  
-        env:
-            TF_VAR_ssh_password: ${{ env.ssh_password }}
-            TF_VAR_ssh_user: ${{ env.ssh_user }}
-            TF_VAR_ciuser: ${{ env.ciuser }}
-            TF_VAR_cipassword: ${{ env.cipassword }}
-            TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-            TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-            TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-            TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-            TF_VAR_repo: ${{ env.repository }}
-            TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
-            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
-            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
-
-      
+        id: init
+        run: terraform init
+              
       - name: 'Terragrunt Plan'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        
-        env:
-            TF_VAR_ssh_password: ${{ env.ssh_password }}
-            TF_VAR_ssh_user: ${{ env.ssh_user }}
-            TF_VAR_ciuser: ${{ env.ciuser }}
-            TF_VAR_cipassword: ${{ env.cipassword }}
-            TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-            TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-            TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-            TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-            TF_VAR_repo: ${{ env.repository }}
-            TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
-            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
-            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
-
-      
+        id: plan
+        run: terraform plan       
 
       - name: 'Terragrunt Apply'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'apply'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        
-        env:
-            TF_VAR_ssh_password: ${{ env.ssh_password }}
-            TF_VAR_ssh_user: ${{ env.ssh_user }}
-            TF_VAR_ciuser: ${{ env.ciuser }}
-            TF_VAR_cipassword: ${{ env.cipassword }}
-            TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-            TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-            TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-            TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-            TF_VAR_repo: ${{ env.repository }}
-            TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
-            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
-            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
+        id: apply
+        run: terraform apply -auto-approve     
+       
 
       
 
