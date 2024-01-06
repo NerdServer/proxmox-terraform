@@ -13,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
       - uses: 1password/install-cli-action@v1
       - uses: 1password/load-secrets-action/configure@v1
         with:
