@@ -28,9 +28,9 @@ jobs:
      
   plan:
       runs-on: self-hosted
-      container:
-        image: ubuntu:22.04
-        options: --user root
+      # container:
+      #   image: ubuntu:22.04
+      #   options: --user root
 
       needs: [ checks ]
       steps:
@@ -75,8 +75,8 @@ jobs:
           
   deploy:
       runs-on: self-hosted
-      container:
-        image: alpine:latest
+      # container:
+      #   image: alpine:latest
       needs: [ plan ]
       if: github.ref == 'refs/heads/main'
       steps:
