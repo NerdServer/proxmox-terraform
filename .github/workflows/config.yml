@@ -34,8 +34,8 @@ jobs:
             ciuser: op://secrets/Terraform/ciuser
             cipassword: op://secrets/Terraform/cipassword
             ssh_pub_key: op://secrets/Terraform/ssh_pub_key
-            proxmox_api_token_id: op://secrets/Terraform/username
-            proxmox_api_token_secret: op://secrets/Terraform/password
+            proxmox_api_token_id: op://secrets/ProxmoxAPI/username
+            proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
             proxmox_api_url: op://secrets/Terraform/host
             repository: op://secrets/Github Terraform PAT/password
     
