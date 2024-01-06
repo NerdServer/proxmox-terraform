@@ -18,3 +18,20 @@ provider "proxmox" {
 # (Optional) Skip TLS Verification
  pm_tls_insecure = true
 }
+
+
+variable "pm_api_url" {
+  description = "Proxmox API URL"
+    type        = string
+    default     = null
+}
+
+variable "pm_api_token_secret" {
+    type        = string
+    default     = null
+}
+
+variable "pm_api_token_id" {
+    type        = string
+    default     = null
+}
