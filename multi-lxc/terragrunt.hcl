@@ -1,5 +1,5 @@
 terraform {
-  source = "../modules/lxc_ubuntu"
+  source = "./modules/lxc_ubuntu"
 }
 
 locals {
