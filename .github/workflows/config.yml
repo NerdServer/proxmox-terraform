@@ -36,7 +36,9 @@ jobs:
         uses: actions/checkout@main
           
       - name: Install 1Password CLI    
-        uses: 1password/install-cli-action@v1
+        run: echo https://downloads.1password.com/linux/alpinelinux/stable/ >> /etc/apk/repositories \
+          wget https://downloads.1password.com/linux/keys/alpinelinux/support@1password.com-61ddfc31.rsa.pub -P /etc/apk/keys \
+         apk update && apk add 1password-cli
 
       - name: Configure 1Password CLI  
         uses: 1password/load-secrets-action/configure@v1
