@@ -14,7 +14,8 @@ resource "proxmox_lxc" "lxc_containers" {
   for_each     = var.lxc_containers
   target_node  = each.value.target_node
   hostname     = local.container_names[tostring(each.key)]
-  ostemplate   = each.value.ostemplate
+  ostemplate   = "ubuntu22-04-template"
+  ssh_public_keys = var.ssh_public_keys
   
   rootfs {
     storage = each.value.rootfs_storage
