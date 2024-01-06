@@ -34,3 +34,4 @@ resource "proxmox_lxc" "lxc_containers" {
 
   unprivileged = false
 }
+}
