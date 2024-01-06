@@ -3,19 +3,25 @@ on:
   push:
     branches:
       - main
-   
-jobs:
-  deploy:
-    runs-on: "self-hosted"  
+env:
+  tf_version: '1.5.7'
+  tg_version: '0.53.2'
+  working_dir: './multi-lxc'
 
+jobs:
+  checks:
+    runs-on: "self-hosted"  
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - name: Check terragrunt HCL
+        uses: gruntwork-io/terragrunt-action@v2
         with:
-          terraform_wrapper: false
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'hclfmt --terragrunt-check --terragrunt-diff'
 
       - name: Install 1Password CLI    
         uses: 1password/install-cli-action@v1
@@ -44,41 +50,34 @@ jobs:
             TF_VAR_AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key
             TF_VAR_AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key
             TF_VAR_AWS_ENDPOINT_URL_S3: op://secrets/Terraform/minio_endpoint
-            working-directory: './multi-lxc'
-    
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-           node-version: '14'
 
-      - name: 'Terragrunt Init'
-        id: init
-        run: terraform init
-       # env: 
-        #  TF_VAR_ssh_password: ${{ env.ssh_password }}
-         # TF_VAR_ssh_user: ${{ env.ssh_user }}
-          #TF_VAR_ciuser: ${{ env.ciuser }}
-          #TF_VAR_cipassword: ${{ env.cipassword }}
-          #TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-          #TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-          #TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-          #TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-          #TF_VAR_repo: ${{ env.repository }}
-          #TF_VAR_pat: ${{ env.pat }}
-          #TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
-          #TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
-          #Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
-        
-            
+  plan:
+      runs-on: self-hosted
+      needs: [ checks ]
+      steps:
+      - name: 'Checkout'
+        uses: actions/checkout@main
           
-      - name: 'Terragrunt Plan'
-        id: plan
-        run: terraform plan       
-
-      - name: 'Terragrunt Apply'
-        id: apply
-        run: terraform apply -auto-approve     
-       
-
-      
-
+      - name: Plan
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'plan'
+          
+  deploy:
+      runs-on: self-hosted
+      needs: [ plan ]
+      if: github.ref == 'refs/heads/main'
+      steps:
+        - name: 'Checkout'
+          uses: actions/checkout@main
+          
+        - name: Deploy
+          uses: gruntwork-io/terragrunt-action@v2
+          with:
+            tf_version: ${{ env.tf_version }}
+            tg_version: ${{ env.tg_version }}
+            tg_dir: ${{ env.working_dir }}
+            tg_command: 'apply'
