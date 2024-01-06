@@ -48,7 +48,10 @@ jobs:
         with:
           tf_actions_version: ${{ env.tf_version }}
           tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'init'
+          tf_actions_subcommand: 
+            'init 
+            -backend-config="TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
+            -backend-config="TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}"'
           tf_actions_working_dir: ${{ env.tf_working_dir }}
           tf_actions_comment: false        
         env:
