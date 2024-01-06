@@ -5,6 +5,8 @@
   
 
 terraform {
+backend "git" {
+    path       = "lxc-multi/state/terraform.tfstate"
 
 required_version = ">= 0.13.0"
 

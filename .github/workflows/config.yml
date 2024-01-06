@@ -33,10 +33,11 @@ jobs:
             ssh_user: op://secrets/Terraform/ssh_user
             ciuser: op://secrets/Terraform/ciuser
             cipassword: op://secrets/Terraform/cipassword
-            ssh_pub_key: ${{ secrets.ssh_pub_key }}
+            ssh_pub_key: op://secrets/Terraform/ssh_pub_key
             proxmox_api_token_id: op://secrets/Terraform/username
             proxmox_api_token_secret: op://secrets/Terraform/password
             proxmox_api_url: op://secrets/Terraform/host
+            repository: op://secrets/Github Terraform PAT/password
     
       - name: 'Terragrunt Format'
         uses: the-commons-project/terragrunt-github-actions@master
