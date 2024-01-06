@@ -33,7 +33,7 @@ jobs:
             ssh_user: op://secrets/Terraform/ssh_user
             ciuser: op://secrets/Terraform/ciuser
             cipassword: op://secrets/Terraform/cipassword
-            ssh_pub_key: op://secrets/Terraform/ssh_pub_key
+            ssh_pub_key: ${{ secrets.ssh_pub_key }}
             proxmox_api_token_id: op://secrets/Terraform/username
             proxmox_api_token_secret: op://secrets/Terraform/password
             proxmox_api_url: op://secrets/Terraform/host
@@ -72,7 +72,7 @@ jobs:
             PKR_VAR_ssh_user: ${{ env.ssh_user }}
             PKR_VAR_ciuser: ${{ env.ciuser }}
             PKR_VAR_cipassword: ${{ env.cipassword }}
-            PKR_VAR_ssh_pub_key: ${{ secrets.ssh_pub_key }}
+            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
             PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
             PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
             PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
