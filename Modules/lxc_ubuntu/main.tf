@@ -3,9 +3,7 @@ terraform {
 backend "s3" {
     bucket = "terraform-tstates"
     key = "./lxc_ubuntu/terraform.tfstate"
-    region = "main"
-    s3 = "http://10.0.0.243:9002"
-        
+    region = "main"        
     skip_credentials_validation = true
     skip_requesting_account_id = true
     skip_metadata_api_check = true
