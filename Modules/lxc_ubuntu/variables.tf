@@ -40,3 +40,8 @@ variable "proxmox_api_token_secret" {
     default     = null
 }
 
+variable "ssh_public_keys" {
+    type        = string
+    default     = null
+}
+
