@@ -1,17 +1,21 @@
 provider "random" {}
 
 locals {
-  container_names = { for i, container in var.lxc_containers : tostring(i) => element(random_pet.container_name.*.id, i) }
+  container_names = {
+    for i, container in var.lxc_containers :
+    tostring(i) => element(random_pet.container_name.*.id, i)
+  }
 }
 
 resource "random_pet" "container_name" {
-  count = length(var.lxc_containers)
-  length = 2
+  count     = length(var.lxc_containers)
+  length    = 2
   separator = "-"
 }
 
 resource "proxmox_lxc" "lxc_containers" {
-  for_each     = var.lxc_containers
+  for_each = var.lxc_containers
+
   target_node  = each.value.target_node
   hostname     = local.container_names[tostring(each.key)]
   ostemplate   = "ISO:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
@@ -23,11 +27,11 @@ resource "proxmox_lxc" "lxc_containers" {
   }
 
   network {
-        name = "eth0"
-        bridge = "vmbr0"
-        ip = "dhcp"
-        ip6 = "dhcp"
-       
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "dhcp"
+    ip6    = "dhcp"
   }
+
   unprivileged = false
 }
