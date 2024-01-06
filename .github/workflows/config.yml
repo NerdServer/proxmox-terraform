@@ -11,19 +11,19 @@ env:
 jobs:
   checks:
     runs-on: "self-hosted"  
-    #container:
-     # image: ubuntu:latest
+    container:
+      image: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@main
 
-      # - name: Check terragrunt HCL
-      #   uses: gruntwork-io/terragrunt-action@v2
-      #   with:
-      #     tf_version: ${{ env.tf_version }}
-      #     tg_version: ${{ env.tg_version }}
-      #     tg_dir: ${{ env.working_dir }}
-      #     tg_command: 'hclfmt --terragrunt-check --terragrunt-diff'
+      - name: Check terragrunt HCL
+        uses: gruntwork-io/terragrunt-action@v1
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'hclfmt --terragrunt-check --terragrunt-diff'
 
       - name: Install 1Password CLI    
         uses: 1password/install-cli-action@v1
@@ -55,6 +55,8 @@ jobs:
 
   plan:
       runs-on: self-hosted
+      container:
+        image: ubuntu:latest
       needs: [ checks ]
       steps:
       - name: 'Checkout'
@@ -70,6 +72,8 @@ jobs:
           
   deploy:
       runs-on: self-hosted
+      container:
+        image: ubuntu:latest
       needs: [ plan ]
       if: github.ref == 'refs/heads/main'
       steps:
