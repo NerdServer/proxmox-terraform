@@ -46,7 +46,7 @@ jobs:
       
       - name: Generate backend.tf
         run: |
-          cat backend.tfvars | sed 's/\(.*\)/"\1"/' | sed 's/=/ = /' > backend.tf
+          cat ./Modules/lxc_ubuntu/backend.tfvars | sed 's/\(.*\)/"\1"/' | sed 's/=/ = /' > ./Modules/lxc_ubuntu/backend.tf
        
       - name: 'Terragrunt Init'
         uses: the-commons-project/terragrunt-github-actions@master
