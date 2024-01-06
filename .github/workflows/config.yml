@@ -47,7 +47,8 @@ jobs:
           tf_actions_binary: 'terraform'
           tf_actions_subcommand: 'fmt'
           tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        env:
+          tf_actions_comment: false        
+        env:
             PKR_VAR_ssh_password: ${{ env.ssh_password }}
             PKR_VAR_ssh_user: ${{ env.ssh_user }}
             PKR_VAR_ciuser: ${{ env.ciuser }}
@@ -84,7 +85,8 @@ jobs:
           tf_actions_binary: 'terraform'
           tf_actions_subcommand: 'validate'
           tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        env:
+          tf_actions_comment: false        
+        env:
             PKR_VAR_ssh_password: ${{ env.ssh_password }}
             PKR_VAR_ssh_user: ${{ env.ssh_user }}
             PKR_VAR_ciuser: ${{ env.ciuser }}
@@ -101,7 +103,8 @@ jobs:
           tg_actions_version: ${{ env.tg_version }}
           tf_actions_subcommand: 'plan'
           tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        env:
+          tf_actions_comment: false        
+        env:
             PKR_VAR_ssh_password: ${{ env.ssh_password }}
             PKR_VAR_ssh_user: ${{ env.ssh_user }}
             PKR_VAR_ciuser: ${{ env.ciuser }}
