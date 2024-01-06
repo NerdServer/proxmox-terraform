@@ -21,7 +21,9 @@ jobs:
       - name: Configure 1Password Service Account
         uses: 1password/load-secrets-action/configure@v1
         with:
-          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          connect-host: ${{ secrets.OP_CONNECT_HOST }}
+          connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
 
       - name: Load Terraform Credentials
         id: load-terraform-credentials
@@ -37,8 +39,6 @@ jobs:
             proxmox_api_token_id: op://secrets/ProxmoxAPI/username
             proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
             proxmox_api_url: op://secrets/Terraform/host
-            repository: op://secrets/Github Terraform PAT/password
-            pat: op://secrets/Github Terraform PAT/password
             minio_access_key: op://secrets/Terraform/minio_access_key
             minio_secret_key: op://secrets/Terraform/minio_secret_key
             minio_endpoint: op://secrets/Terraform/minio_endpoint
