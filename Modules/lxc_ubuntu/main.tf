@@ -3,11 +3,7 @@
 # Initial Provider Configuration for Proxmox
 
 terraform {
-  backend "git" {
-    path = "lxc-multi/state/terraform.tfstate"
-  }
-  
-  required_providers {
+ required_providers {
     proxmox = {
       source  = "TheGameProfi/proxmox"
       version = "2.9.15"

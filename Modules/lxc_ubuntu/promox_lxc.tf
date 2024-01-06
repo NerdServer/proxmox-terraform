@@ -22,9 +22,8 @@ resource "proxmox_lxc" "lxc_containers" {
   ssh_public_keys = var.ssh_pub_key
   
   rootfs {
-    storage = each.value.rootfs_storage
-    size    = each.value.rootfs_size
-  }
+     storage = each.value.rootfs_storage
+     size    = each.value.rootfs_size
 
   network {
     name   = "eth0"
