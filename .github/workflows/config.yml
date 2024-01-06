@@ -39,6 +39,9 @@ jobs:
             proxmox_api_url: op://secrets/Terraform/host
             repository: op://secrets/Github Terraform PAT/password
             pat: op://secrets/Github Terraform PAT/password
+            minio_access_key: op://secrets/Terraform/minio_access_key
+            minio_secret_key: op://secrets/Terraform/minio_secret_key
+            minio_endpoint: op://secrets/Terraform/minio_endpoint
     
       
        
@@ -61,6 +64,10 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
+            TF_VAR_minio_access_key: ${{ env.minio_access_key }}
+            TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
+
 
       
       - name: 'Terragrunt Plan'
@@ -82,6 +89,9 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
+            TF_VAR_minio_access_key: ${{ env.minio_access_key }}
+            TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
        
       - name: 'Terragrunt Apply'
         uses: the-commons-project/terragrunt-github-actions@master
@@ -102,3 +112,7 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
+            TF_VAR_minio_access_key: ${{ env.minio_access_key }}
+            TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
+            
