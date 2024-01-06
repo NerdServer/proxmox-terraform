@@ -29,7 +29,9 @@ jobs:
   plan:
       runs-on: self-hosted
       container:
-        image: alpine:latest
+        image: ubuntu:22.04
+        options: --user root
+
       needs: [ checks ]
       steps:
       - name: 'Checkout'
