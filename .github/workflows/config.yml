@@ -15,7 +15,7 @@ jobs:
      # image: ubuntu:latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
 
       - name: Check terragrunt HCL
         uses: gruntwork-io/terragrunt-action@v2
