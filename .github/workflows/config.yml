@@ -5,17 +5,7 @@ on:
       - main
 env:
     working-directory: './multi-lxc'
-    ssh_password: op://secrets/Terraform/ssh_password
-    ssh_user: op://secrets/Terraform/ssh_user
-    ciuser: op://secrets/Terraform/ciuser
-    cipassword: op://secrets/Terraform/cipassword
-    ssh_pub_key: op://secrets/Terraform/ssh_pub_key
-    proxmox_api_token_id: op://secrets/ProxmoxAPI/username
-    proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
-    proxmox_api_url: op://secrets/Terraform/host
-    minio_access_key: op://secrets/Terraform/minio_access_key
-    minio_secret_key: op://secrets/Terraform/minio_secret_key
-    minio_endpoint: op://secrets/Terraform/minio_endpoint
+   
 
 jobs:
   deploy:
@@ -26,8 +16,7 @@ jobs:
       - uses: 1password/install-cli-action@v1
       - uses: 1password/load-secrets-action/configure@v1
         with:
-        export-env: True
-        #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           connect-host: ${{ secrets.OP_CONNECT_HOST }}
           connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
 
@@ -36,6 +25,17 @@ jobs:
         uses: 1password/load-secrets-action@v1
         with:
             export-env: True
+            ssh_password: op://secrets/Terraform/ssh_password
+            ssh_user: op://secrets/Terraform/ssh_user
+            ciuser: op://secrets/Terraform/ciuser
+            cipassword: op://secrets/Terraform/cipassword
+            ssh_pub_key: op://secrets/Terraform/ssh_pub_key
+            proxmox_api_token_id: op://secrets/ProxmoxAPI/username
+            proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
+            proxmox_api_url: op://secrets/Terraform/host
+            minio_access_key: op://secrets/Terraform/minio_access_key
+            minio_secret_key: op://secrets/Terraform/minio_secret_key
+            minio_endpoint: op://secrets/Terraform/minio_endpoint
     
 
       - name: 'Terragrunt Init'
