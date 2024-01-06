@@ -4,7 +4,7 @@ backend "s3" {
     bucket = "terraform-tstates"
     key = "./lxc_ubuntu/terraform.tfstate"
     region = "main"
-    endpoint_url= "http://10.0.0.243:9002"
+   AWS_ENDPOINT_URL= "http://10.0.0.243:9002"
         
     skip_credentials_validation = true
     skip_requesting_account_id = true
