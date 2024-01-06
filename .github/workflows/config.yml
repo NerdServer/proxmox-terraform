@@ -38,6 +38,10 @@ jobs:
             minio_secret_key: op://secrets/Terraform/minio_secret_key
             minio_endpoint: op://secrets/Terraform/minio_endpoint
     
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+           node-version: '14'
 
       - name: 'Terragrunt Init'
         id: init
