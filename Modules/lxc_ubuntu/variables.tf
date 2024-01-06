@@ -8,18 +8,4 @@ variable "lxc_containers" {
   }))
 }
 
-variable "pm_api_url" {
-  description = "Proxmox API URL"
-    type        = string
-    default     = null
-}
 
-variable "pm_api_token_secret" {
-    type        = string
-    default     = null
-}
-
-variable "pm_api_token_id" {
-    type        = string
-    default     = null
-}
