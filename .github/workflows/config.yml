@@ -3,20 +3,43 @@ on:
   push:
     branches:
       - main
-#env:
- #   working-directory: './multi-lxc'
    
-
 jobs:
   deploy:
     runs-on: "self-hosted"  
+    defaults:
+      run:
+        working-directory: './multi-lxc'
+    env: 
+      TF_VAR_ssh_password: ${{ env.ssh_password }}
+      TF_VAR_ssh_user: ${{ env.ssh_user }}
+      TF_VAR_ciuser: ${{ env.ciuser }}
+      TF_VAR_cipassword: ${{ env.cipassword }}
+      TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
+      TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
+      TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
+      TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
+      TF_VAR_repo: ${{ env.repository }}
+      TF_VAR_pat: ${{ env.pat }}
+      TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
+      TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
+      Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}            
+
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-      - uses: 1password/install-cli-action@v1
-      - uses: 1password/load-secrets-action/configure@v1
+
+      - name: Install 1Password CLI    
+        uses: 1password/install-cli-action@v1
+
+      - name: Configure 1Password CLI  
+        uses: 1password/load-secrets-action/configure@v1
         with:
           #service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           connect-host: ${{ secrets.OP_CONNECT_HOST }}
@@ -49,19 +72,7 @@ jobs:
         id: init
         run: terraform init
         env:
-          TF_VAR_ssh_password: ${{ env.ssh_password }}
-          TF_VAR_ssh_user: ${{ env.ssh_user }}
-          TF_VAR_ciuser: ${{ env.ciuser }}
-          TF_VAR_cipassword: ${{ env.cipassword }}
-          TF_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-          TF_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-          TF_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-          TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
-          TF_VAR_repo: ${{ env.repository }}
-          TF_VAR_pat: ${{ env.pat }}
-          TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
-          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
-          Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}     
+            
           
       - name: 'Terragrunt Plan'
         id: plan
