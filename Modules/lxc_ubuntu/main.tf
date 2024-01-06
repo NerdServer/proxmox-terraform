@@ -1,12 +1,4 @@
 terraform {
-  backend "git" {
-    repository = var.repo
-    branch     = "main"
-    path       = "./terraform.tfstate"
-
-    # Use a Personal Access Token (PAT) for authentication
-    token      = var.pat
-  }
 
   required_providers {
     proxmox = {
