@@ -2,8 +2,11 @@ terraform {
 
 backend "s3" {
     bucket = "terraform-tstates"
-    key = "terraform.tfstate"
+    key = "./lxc_ubuntu/terraform.tfstate"
     region = "main"
+    endpoints = {
+            s3 = "http://10.0.0.243:9002"
+        }
     skip_credentials_validation = true
     skip_metadata_api_check = true
     skip_region_validation = true
