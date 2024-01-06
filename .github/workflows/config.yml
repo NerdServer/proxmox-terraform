@@ -55,8 +55,8 @@ jobs:
 
   plan:
       runs-on: self-hosted
-      container:
-        image: ubuntu:latest
+      # container:
+      #   image: ubuntu:latest
       needs: [ checks ]
       steps:
       - name: 'Checkout'
@@ -72,8 +72,8 @@ jobs:
           
   deploy:
       runs-on: self-hosted
-      container:
-        image: ubuntu:22.04
+      # container:
+      #   image: ubuntu:22.04
       needs: [ plan ]
       if: github.ref == 'refs/heads/main'
       steps:
