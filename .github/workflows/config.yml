@@ -44,6 +44,9 @@ jobs:
             minio_endpoint: op://secrets/Terraform/minio_endpoint
     
       
+      - name: Generate backend.tf
+        run: |
+          cat backend.tfvars | sed 's/\(.*\)/"\1"/' | sed 's/=/ = /' > backend.tf
        
       - name: 'Terragrunt Init'
         uses: the-commons-project/terragrunt-github-actions@master
@@ -115,4 +118,3 @@ jobs:
             TF_VAR_minio_access_key: ${{ env.minio_access_key }}
             TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
             TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
-            
