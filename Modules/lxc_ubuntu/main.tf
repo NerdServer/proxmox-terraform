@@ -4,9 +4,8 @@ backend "s3" {
     bucket = "terraform-tstates"
     key = "./lxc_ubuntu/terraform.tfstate"
     region = "main"
-    endpoints = {
-            s3 = "http://10.0.0.243:9002"
-        }
+    endpoint_url= "http://10.0.0.243:9002"
+        
     skip_credentials_validation = true
     skip_requesting_account_id = true
     skip_metadata_api_check = true
@@ -32,4 +31,3 @@ provider "proxmox" {
   pm_tls_insecure = true
 }
 
-# The rest of your Terraform configuration...
