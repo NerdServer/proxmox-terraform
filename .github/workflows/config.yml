@@ -62,9 +62,9 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_access_key: ${{ env.minio_access_key }}
-            TF_VAR_secret_key: ${{ env.minio_secret_key }}
-
+            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
+            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
+            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
 
       
       - name: 'Terragrunt Plan'
@@ -86,9 +86,11 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_access_key: ${{ env.minio_access_key }}
-            TF_VAR_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
+            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
+            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
 
+      
 
       - name: 'Terragrunt Apply'
         uses: the-commons-project/terragrunt-github-actions@master
@@ -109,10 +111,9 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_minio_access_key: ${{ env.minio_access_key }}
-            TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
-            TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
-            TF_VAR_access_key: ${{ env.minio_access_key }}
-            TF_VAR_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_AWS_ACCESS_KEY_ID: ${{ env.minio_access_key }}
+            TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ env.minio_secret_key }}
+            Tf_VAR_AWS_ENDPOINT_URL_S3: ${{ env.minio_endpoint }}
 
+      
 
