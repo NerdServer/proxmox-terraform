@@ -4,8 +4,8 @@ on:
     branches:
       - main
 env:
-  tf_version: '1.4.6'
-  tg_version: '0.46.3'
+  tf_version: '1.6.6'
+  tg_version: '0.54.12'
   working_dir: './multi-lxc'
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
   deploy:
       runs-on: self-hosted
       container:
-        image: ubuntu:latest
+        image: ubuntu:22.04
       needs: [ plan ]
       if: github.ref == 'refs/heads/main'
       steps:
