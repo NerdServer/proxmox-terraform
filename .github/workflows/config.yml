@@ -59,24 +59,6 @@ jobs:
             PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
             PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
         
-      - name: 'Terragrunt Validate'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_binary: 'terraform'
-          tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: false        
-        env:
-            PKR_VAR_ssh_password: ${{ env.ssh_password }}
-            PKR_VAR_ssh_user: ${{ env.ssh_user }}
-            PKR_VAR_ciuser: ${{ env.ciuser }}
-            PKR_VAR_cipassword: ${{ env.cipassword }}
-            PKR_VAR_ssh_pub_key: ${{ env.ssh_pub_key }}
-            PKR_VAR_proxmox_api_token_id: ${{ env.proxmox_api_token_id }}
-            PKR_VAR_proxmox_api_token_secret: ${{ env.proxmox_api_token_secret }}
-            PKR_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
       
       - name: 'Terragrunt Plan'
         uses: the-commons-project/terragrunt-github-actions@master
