@@ -13,7 +13,7 @@ terraform {
     skip_s3_checksum = true 
     access_key = "4c0rKemwArm75NWThpCI" 
     secret_key = "iHhu7JenbY9OML4xBcJp6EVrVuzAfOgVEC1b1a5w" 
-    endpoints = { s3 = "http://10.0.0.243:9001" } 
+    endpoints = { s3 = "http://10.0.0.243:9000" } 
     } 
     
   required_providers {
