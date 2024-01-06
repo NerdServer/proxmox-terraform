@@ -71,7 +71,7 @@ jobs:
       - name: 'Terragrunt Init'
         id: init
         run: terraform init
-        env:
+        
             
           
       - name: 'Terragrunt Plan'
