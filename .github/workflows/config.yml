@@ -42,12 +42,7 @@ jobs:
             minio_access_key: op://secrets/Terraform/minio_access_key
             minio_secret_key: op://secrets/Terraform/minio_secret_key
             minio_endpoint: op://secrets/Terraform/minio_endpoint
-    
-      
-      - name: Generate backend.tf
-        run: |
-          cat ./Modules/lxc_ubuntu/backend.tfvars | sed 's/\(.*\)/"\1"/' | sed 's/=/ = /' > ./Modules/lxc_ubuntu/backend.tf
-       
+
       - name: 'Terragrunt Init'
         uses: the-commons-project/terragrunt-github-actions@master
         with:
@@ -67,9 +62,9 @@ jobs:
             TF_VAR_proxmox_api_url: ${{ env.proxmox_api_url }}
             TF_VAR_repo: ${{ env.repository }}
             TF_VAR_pat: ${{ env.pat }}
-            TF_VAR_minio_access_key: ${{ env.minio_access_key }}
-            TF_VAR_minio_secret_key: ${{ env.minio_secret_key }}
-            TF_VAR_minio_endpoint: ${{ env.minio_endpoint }}
+            TF_VAR_access_key: ${{ env.minio_access_key }}
+            TF_VAR_secret_key: ${{ env.minio_secret_key }}
+            TF_VAR_endpoint: ${{ env.minio_endpoint }}
 
 
       
