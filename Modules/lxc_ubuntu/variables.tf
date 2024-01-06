@@ -10,13 +10,16 @@ variable "lxc_containers" {
 
 variable "pm_api_url" {
   description = "Proxmox API URL"
-  default     = null
+    type        = string
+    default     = null
 }
 
 variable "pm_api_token_secret" {
-  default     = null
+    type        = string
+    default     = null
 }
 
 variable "pm_api_token_id" {
-  default     = null
+    type        = string
+    default     = null
 }
