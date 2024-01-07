@@ -71,7 +71,7 @@ jobs:
             tf_version: ${{ env.tf_version }}
             tg_version: ${{ env.tg_version }}
             tg_dir: ${{ env.working_dir }}
-            tg_command: init -backend-config="aAWS_ACCESS_KEY_ID=op://secrets/Terraform/minio_access_key" -backend-config="WS_SECRET_ACCESS_KEY=op://secrets/Terraform/minio_secret_key"
+            tg_command: init -backend-config="AWS_ACCESS_KEY_ID=op://secrets/Terraform/minio_access_key" -backend-config="AWS_SECRET_ACCESS_KEY=op://secrets/Terraform/minio_secret_key"
 
       - name: Plan
         uses: gruntwork-io/terragrunt-action@v1
