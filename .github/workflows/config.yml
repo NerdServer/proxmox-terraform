@@ -75,8 +75,6 @@ jobs:
           
   deploy:
       runs-on: self-hosted
-      # container:
-      #   image: alpine:latest
       needs: [ plan ]
       if: github.ref == 'refs/heads/main'
       steps:
@@ -118,4 +116,4 @@ jobs:
             tf_version: ${{ env.tf_version }}
             tg_version: ${{ env.tg_version }}
             tg_dir: ${{ env.working_dir }}
-            tg_command: 'apply'
+            tg_command: 'apply -base-config=TF_VAR_AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key -base-config=TF_VAR_AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key'
