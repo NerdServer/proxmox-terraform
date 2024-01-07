@@ -61,8 +61,8 @@ jobs:
             TF_VAR_proxmox_api_token_id: op://secrets/ProxmoxAPI/username
             TF_VAR_proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
             TF_VAR_proxmox_api_url: op://secrets/Terraform/host
-            AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key
-            SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key
+            TF_VAR_AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key
+            TF_VAR_SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key
             TF_VAR_AWS_ENDPOINT_URL_S3: op://secrets/Terraform/minio_endpoint
 
       - name: Init
@@ -73,8 +73,8 @@ jobs:
             tg_dir: ${{ env.working_dir }}
             tg_command: 'init'
         env:
-            AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key
-            SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key
+            AWS_ACCESS_KEY_ID: ${{ env.TF_VAR_AWS_ACCESS_KEY_ID }}
+            SECRET_ACCESS_KEY: ${{ env.TF_VAR_SECRET_ACCESS_KEY }}
 
 
       - name: Plan
