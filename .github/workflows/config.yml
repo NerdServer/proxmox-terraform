@@ -72,6 +72,11 @@ jobs:
             tg_version: ${{ env.tg_version }}
             tg_dir: ${{ env.working_dir }}
             tg_command: 'init'
+        env:
+            AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key
+            SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key
+
+
       - name: Plan
         uses: gruntwork-io/terragrunt-action@v1
         with:
