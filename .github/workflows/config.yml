@@ -125,8 +125,8 @@ jobs:
             tf_version: ${{ env.tf_version }}
             tg_version: ${{ env.tg_version }}
             tg_dir: ${{ env.working_dir }}
-            tg_command: 'init -backend-config="access_key: op://secrets/Terraform/minio_access_key" -backend-config="secret_key: op://secrets/Terraform/minio_secret_key"'  
-
+            tg_command: 'init'
+            
         - name: Deploy
           uses: gruntwork-io/terragrunt-action@v1
           with:
