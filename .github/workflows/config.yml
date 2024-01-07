@@ -116,4 +116,4 @@ jobs:
             tf_version: ${{ env.tf_version }}
             tg_version: ${{ env.tg_version }}
             tg_dir: ${{ env.working_dir }}
-            tg_command: 'apply -base-config=TF_VAR_AWS_ACCESS_KEY_ID: op://secrets/Terraform/minio_access_key -base-config=TF_VAR_AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/minio_secret_key'
+            tg_command: 'apply -base-config="access_key: op://secrets/Terraform/minio_access_key" -base-config="secret_key: op://secrets/Terraform/minio_secret_key"'
