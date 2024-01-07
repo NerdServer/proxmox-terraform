@@ -70,8 +70,8 @@ jobs:
             tg_dir: ${{ env.working_dir }}
             tg_command: 'init'
         env:
-            AWS_ACCESS_KEY_ID: ${{ AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        
 
 
