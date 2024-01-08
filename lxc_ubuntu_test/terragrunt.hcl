@@ -17,7 +17,7 @@ locals {
       network_ip6    = "dhcp"
       network_gateway = "10.0.40.1"
       network_subnet  = "10.0.40.0/24"
-    },
+    }
     container2 = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
@@ -31,12 +31,10 @@ locals {
       network_ip6    = "dhcp"
       network_gateway = "10.0.40.1"
       network_subnet  = "10.0.40.0/24"
-    },
-
+    }
   }
 }
 
 inputs = {
   lxc_containers = local.containers
 }
-#trigger actions 2
