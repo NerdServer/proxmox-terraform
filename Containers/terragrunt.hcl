@@ -4,7 +4,7 @@ terraform {
 
 locals {
   containers = {
-    container1 = {
+    Dell-Management = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
       rootfs_size    = "10G"
