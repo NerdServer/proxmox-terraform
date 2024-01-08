@@ -62,7 +62,7 @@ jobs:
             TF_VAR_ssh_user: op://secrets/Terraform/ssh_user
             TF_VAR_ciuser: op://secrets/Terraform/ciuser
             TF_VAR_cipassword: op://secrets/Terraform/cipassword
-            TF_VAR_ssh_pub_key: op://secrets/Terraform/ssh_pub_key
+            TF_VAR_ssh_pub_keys: op://secrets/Terraform/ssh_pub_key
             TF_VAR_proxmox_api_token_id: op://secrets/ProxmoxAPI/username
             TF_VAR_proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
             TF_VAR_proxmox_api_url: op://secrets/Terraform/host
