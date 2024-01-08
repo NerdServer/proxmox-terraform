@@ -1,7 +1,8 @@
 terraform {
-  Modules {
-    source = "github.com/NerdServer/proxmox-terraform-modules//lxc_ubuntu?ref=main"
+  module "lxc_ubuntu" {
+  source = "github.com/NerdServer/proxmox-terraform-modules//lxc_ubuntu"
   }
+}
 }
 
 locals {
