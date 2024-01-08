@@ -39,3 +39,4 @@ locals {
 inputs = {
   lxc_containers = local.containers
 }
+#trigger actions
