@@ -8,7 +8,7 @@ locals {
     rootfs_storage = "pve-iscsi-lun0"
     rootfs_size    = "8G"
     tags           = "lxc"
-    ostemplate     = "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+    ostemplate     = "ISO:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
 
   } }
 }
