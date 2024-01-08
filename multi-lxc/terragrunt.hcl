@@ -3,7 +3,7 @@ terraform {
   source = "github.com/NerdServer/proxmox-terraform-modules//lxc_ubuntu"
   }
 }
-}
+
 
 locals {
   containers = { for i in range(1, 3) : i => {
