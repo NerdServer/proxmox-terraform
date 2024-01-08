@@ -1,4 +1,4 @@
-name: Terraform CI/CD
+name: lxc_ubuntu_template CICD
 on:
   push:
     paths:

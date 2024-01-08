@@ -1,4 +1,4 @@
-name: Terraform CI/CD
+name: multi-lxc CICD
 on:
   push:
     paths:
