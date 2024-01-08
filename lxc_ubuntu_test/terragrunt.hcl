@@ -18,6 +18,7 @@ locals {
       network_gateway = "10.0.40.1"
       network_subnet  = "10.0.40.0/24"
     }
+    # Add more containers if needed
   }
 }
 
