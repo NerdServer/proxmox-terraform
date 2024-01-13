@@ -14,6 +14,8 @@ locals {
       ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
       cores          = "1"
       memory         = "512"
+      onboot         = true
+      start          = true
     }
     Dockerge = {
       target_node    = "nerd-pve02"
@@ -25,6 +27,8 @@ locals {
       ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
       cores          = "1"
       memory         = "16000"
+      onboot         = true
+      start          = true
     }
   }
 }
