@@ -30,19 +30,19 @@ locals {
       onboot         = true
       start          = true
     }
-    // Ansible-Semaphore = {
-    //   target_node    = "nerd-pve02"
-    //   rootfs_storage = "pve-iscsi-lun0"
-    //   rootfs_size    = "50G"
-    //   gw             = "10.0.40.1"
-    //   ip             = "10.0.40.29/24"
-    //   tag            = "40"
-    //   ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
-    //   cores          = "4"
-    //   memory         = "8000"
-    //   onboot         = true
-    //   start          = true
-    // }
+    Ansible-Semaphore = {
+      target_node    = "nerd-pve02"
+      rootfs_storage = "pve-iscsi-lun0"
+      rootfs_size    = "50G"
+      gw             = "10.0.40.1"
+      ip             = "10.0.40.29/24"
+      tag            = "40"
+      ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+      cores          = "4"
+      memory         = "8000"
+      onboot         = true
+      start          = true
+    }
   }
 }
 
