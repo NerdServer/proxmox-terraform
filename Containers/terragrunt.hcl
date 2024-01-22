@@ -30,6 +30,19 @@ locals {
       onboot         = true
       start          = true
     }
+      Scrypted-NVR = {
+      target_node    = "nerd-pve02"
+      rootfs_storage = "pve-iscsi-lun0"
+      rootfs_size    = "50G"
+      gw             = "10.0.40.1"
+      ip             = "10.0.40.30/24"
+      tag            = "40"
+      ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+      cores          = "4"
+      memory         = "8000"
+      onboot         = true
+      start          = true
+    }
   }
 }
 
