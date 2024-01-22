@@ -30,7 +30,7 @@ locals {
       onboot         = true
       start          = true
     }
-      Scrypted-NVR = {
+    Scrypted-NVR = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
       rootfs_size    = "50G"
