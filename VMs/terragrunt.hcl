@@ -10,7 +10,7 @@ inputs = {
     m4 = { target_node = "nerd-pve01", vcpu = "4", memory = "16384", disk_size = "50", name = "HADES-01", ip = "10.0.40.31", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" },
     m5 = { target_node = "nerd-pve02", vcpu = "4", memory = "16384", disk_size = "50", name = "HADES-02", ip = "10.0.40.32", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" },
     m6 = { target_node = "nerd-pve03", vcpu = "4", memory = "16384", disk_size = "50", name = "HADES-03", ip = "10.0.40.33", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" },
-    m7 = { target_node = "nerd-pve03", vcpu = "4", memory = "16384", disk_size = "50", name = "JV-01", ip = "10.0.40.34", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" },
-    m8 = { target_node = "nerd-pve03", vcpu = "4", memory = "16384", disk_size = "50", name = "JV-02", ip = "10.0.40.35", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" }
+    m7 = { target_node = "nerd-pve03", vcpu = "4", memory = "16384", disk_size = "1000", name = "JV-01", ip = "10.0.40.34", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" },
+    m8 = { target_node = "nerd-pve03", vcpu = "4", memory = "16384", disk_size = "1000", name = "JV-02", ip = "10.0.40.35", gw = "10.0.40.1", tags = "ubuntu", source_template = "ubuntu22-04-template" }
   }
 }
