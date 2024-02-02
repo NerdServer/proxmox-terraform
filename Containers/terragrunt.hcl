@@ -30,8 +30,8 @@ locals {
       onboot         = true
       start          = true
     }
-    Scrypted-NVR = {
-      target_node    = "nerd-pve02"
+    Homebridge = {
+      target_node    = "nerd-pve04"
       rootfs_storage = "pve-iscsi-lun0"
       rootfs_size    = "50G"
       gw             = "10.0.40.1"
