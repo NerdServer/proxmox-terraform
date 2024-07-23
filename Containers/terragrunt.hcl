@@ -51,8 +51,8 @@ locals {
       ip             = "10.0.40.51/24"
       tag            = "40"
       ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
-      cores          = "4"
-      memory         = "8000"
+      cores          = "8"
+      memory         = "16000"
       onboot         = true
       start          = true
     }
