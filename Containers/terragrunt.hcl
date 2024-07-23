@@ -30,32 +30,32 @@ locals {
       onboot         = true
       start          = true
     }
-    Pterodactyl-Panel = {
-      target_node    = "nerd-pve02"
-      rootfs_storage = "pve-iscsi-lun0"
-      rootfs_size    = "25G"
-      gw             = "10.0.40.1"
-      ip             = "10.0.40.50/24"
-      tag            = "40"
-      ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
-      cores          = "4"
-      memory         = "8000"
-      onboot         = true
-      start          = true
-    }
-    Pterodactyl-Wing01 = {
-      target_node    = "nerd-pve02"
-      rootfs_storage = "pve-iscsi-lun0"
-      rootfs_size    = "50G"
-      gw             = "10.0.40.1"
-      ip             = "10.0.40.51/24"
-      tag            = "40"
-      ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
-      cores          = "8"
-      memory         = "16000"
-      onboot         = true
-      start          = true
-    }
+    // Pterodactyl-Panel = {
+    //   target_node    = "nerd-pve02"
+    //   rootfs_storage = "pve-iscsi-lun0"
+    //   rootfs_size    = "25G"
+    //   gw             = "10.0.40.1"
+    //   ip             = "10.0.40.50/24"
+    //   tag            = "40"
+    //   ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+    //   cores          = "4"
+    //   memory         = "8000"
+    //   onboot         = true
+    //   start          = true
+    // }
+    // Pterodactyl-Wing01 = {
+    //   target_node    = "nerd-pve02"
+    //   rootfs_storage = "pve-iscsi-lun0"
+    //   rootfs_size    = "50G"
+    //   gw             = "10.0.40.1"
+    //   ip             = "10.0.40.51/24"
+    //   tag            = "40"
+    //   ostemplate     = "ISO:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+    //   cores          = "8"
+    //   memory         = "16000"
+    //   onboot         = true
+    //   start          = true
+    // }
   }
 }
 
