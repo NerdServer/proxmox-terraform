@@ -33,7 +33,7 @@ locals {
     Pterodactyl-Panel = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
-      rootfs_size    = "20G"
+      rootfs_size    = "25G"
       gw             = "10.0.40.1"
       ip             = "10.0.40.50/24"
       tag            = "40"
