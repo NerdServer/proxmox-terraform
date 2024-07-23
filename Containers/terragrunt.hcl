@@ -30,7 +30,7 @@ locals {
       onboot         = true
       start          = true
     }
-    Pterodactyl_Panel = {
+    Pterodactyl-Panel = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
       rootfs_size    = "20G"
@@ -43,7 +43,7 @@ locals {
       onboot         = true
       start          = true
     }
-    Pterodactyl_Wing01 = {
+    Pterodactyl-Wing01 = {
       target_node    = "nerd-pve02"
       rootfs_storage = "pve-iscsi-lun0"
       rootfs_size    = "50G"
