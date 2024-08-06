@@ -1,5 +1,5 @@
 terraform {
-  source = "github.com/NerdServer/proxmox-terraform-modules//Vms?ref=main"
+  source = "github.com/NerdServer/proxmox-terraform-modules//VMs?ref=main"
 }
 
 inputs = {
