@@ -1,4 +1,4 @@
-name: VMs CICD
+name: talos CICD
 on:
   push:
     paths:
