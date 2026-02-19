@@ -65,16 +65,19 @@ jobs:
     #container:
       #image: ubuntu:22.04
     steps:
+      - name: Ensure Git is Installed
+        run: |
+          if ! command -v git &> /dev/null; then
+            export DEBIAN_FRONTEND=noninteractive
+            sudo apt-get update && sudo apt-get install -y git
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Append to lxc.yaml (If workflow_dispatch)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.lxc_name != '' && github.event.inputs.action == 'apply'
         run: |
-          if ! command -v git &> /dev/null; then
-            export DEBIAN_FRONTEND=noninteractive
-            sudo apt-get update && sudo apt-get install -y git
-          fi
           export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin:$PATH"
           cat <<EOF >> Containers/lxc.yaml
           ${{ github.event.inputs.lxc_name }}:
