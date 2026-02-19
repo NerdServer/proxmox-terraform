@@ -76,11 +76,10 @@ jobs:
       - name: Append to vms.yaml (If workflow_dispatch)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.vm_name != '' && github.event.inputs.action == 'apply'
         run: |
-          LAST_REF=$(grep -oE '^m[0-9]+:' VMs/vms.yaml | tr -d ':' | sort -V | tail -n 1)
-          if [ -z "$LAST_REF" ]; then
+          NUM=$(grep -oE '^m[0-9]+:' VMs/vms.yaml | tr -d 'm:' | sort -n | tail -n 1 || true)
+          if [ -z "$NUM" ]; then
             NEXT_REF="m1"
           else
-            NUM=${LAST_REF#m}
             NEXT_REF="m$((NUM + 1))"
           fi
           
@@ -100,7 +99,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add VMs/vms.yaml
           git commit -m "Auto-provision VM: ${{ github.event.inputs.vm_name }} as $NEXT_REF"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
 
       - name: Check terragrunt HCL
         uses: gruntwork-io/terragrunt-action@v1
