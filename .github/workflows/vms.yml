@@ -76,6 +76,11 @@ jobs:
       - name: Append to vms.yaml (If workflow_dispatch)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.vm_name != '' && github.event.inputs.action == 'apply'
         run: |
+          if ! command -v git &> /dev/null; then
+            export DEBIAN_FRONTEND=noninteractive
+            sudo apt-get update && sudo apt-get install -y git
+          fi
+          export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin:$PATH"
           NUM=$(grep -oE '^m[0-9]+:' VMs/vms.yaml | tr -d 'm:' | sort -n | tail -n 1 || true)
           if [ -z "$NUM" ]; then
             NEXT_REF="m1"
