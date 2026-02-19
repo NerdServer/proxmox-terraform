@@ -5,6 +5,48 @@ on:
       - 'Containers/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        default: 'apply'
+        options:
+        - apply
+        - destroy
+      lxc_name:
+        description: 'LXC Hostname (e.g., Nginx-Proxy)'
+        required: false
+        type: string
+      target_node:
+        description: 'Target Proxmox Node (e.g., nerd-pve03)'
+        required: false
+        default: 'nerd-pve04'
+        type: string
+      ip_address:
+        description: 'IP Address (e.g., 10.0.40.24/24)'
+        required: false
+        type: string
+      cores:
+        description: 'CPU Cores'
+        required: false
+        default: '1'
+        type: string
+      memory:
+        description: 'Memory (MB)'
+        required: false
+        default: '512'
+        type: string
+      rootfs_size:
+        description: 'Disk Size (e.g., 10G)'
+        required: false
+        default: '10G'
+        type: string
+      rootfs_storage:
+        description: 'Storage Pool (e.g., pve-iscsi-lun0)'
+        required: false
+        default: 'pve-iscsi-lun0'
+        type: string
 env:
   tf_version: '1.6.6'
   tg_version: '0.54.12'
@@ -23,6 +65,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Append to lxc.yaml (If workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.lxc_name != '' && github.event.inputs.action == 'apply'
+        run: |
+          cat <<EOF >> Containers/lxc.yaml
+          ${{ github.event.inputs.lxc_name }}:
+            target_node: "${{ github.event.inputs.target_node }}"
+            ip: "${{ github.event.inputs.ip_address }}"
+            cores: "${{ github.event.inputs.cores }}"
+            memory: "${{ github.event.inputs.memory }}"
+            rootfs_size: "${{ github.event.inputs.rootfs_size }}"
+            rootfs_storage: "${{ github.event.inputs.rootfs_storage }}"
+          EOF
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Containers/lxc.yaml
+          git commit -m "Auto-provision LXC: ${{ github.event.inputs.lxc_name }}"
+          git push
 
       - name: Check terragrunt HCL
         uses: gruntwork-io/terragrunt-action@v1

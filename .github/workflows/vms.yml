@@ -5,6 +5,53 @@ on:
       - 'VMs/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        default: 'apply'
+        options:
+        - apply
+        - destroy
+      vm_name:
+        description: 'Optional: VM Name (e.g., ZUES-04)'
+        required: false
+        type: string
+      target_node:
+        description: 'Target Proxmox Node (e.g., nerd-pve01)'
+        required: false
+        default: 'nerd-pve01'
+        type: string
+      ip_address:
+        description: 'IP Address (e.g., 10.0.40.24)'
+        required: false
+        type: string
+      vcpu:
+        description: 'vCPU Cores'
+        required: false
+        default: '4'
+        type: string
+      memory:
+        description: 'Memory (MB)'
+        required: false
+        default: '16384'
+        type: string
+      disk_size:
+        description: 'Disk Size (GB)'
+        required: false
+        default: '30'
+        type: string
+      storage:
+        description: 'Storage Pool (e.g., ssd1, ssd2)'
+        required: false
+        default: 'ssd1'
+        type: string
+      source_template:
+        description: 'Source Template'
+        required: false
+        default: 'ubuntu22-04-template'
+        type: string
 env:
   tf_version: '1.6.6'
   tg_version: '0.54.12'
@@ -23,6 +70,35 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Append to vms.yaml (If workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.vm_name != '' && github.event.inputs.action == 'apply'
+        run: |
+          LAST_REF=$(grep -oE '^m[0-9]+:' VMs/vms.yaml | tr -d ':' | sort -V | tail -n 1)
+          if [ -z "$LAST_REF" ]; then
+            NEXT_REF="m1"
+          else
+            NUM=${LAST_REF#m}
+            NEXT_REF="m$((NUM + 1))"
+          fi
+          
+          cat <<EOF >> VMs/vms.yaml
+          $NEXT_REF:
+            name: "${{ github.event.inputs.vm_name }}"
+            target_node: "${{ github.event.inputs.target_node }}"
+            ip: "${{ github.event.inputs.ip_address }}"
+            vcpu: "${{ github.event.inputs.vcpu }}"
+            memory: "${{ github.event.inputs.memory }}"
+            disk_size: "${{ github.event.inputs.disk_size }}"
+            storage: "${{ github.event.inputs.storage }}"
+            source_template: "${{ github.event.inputs.source_template }}"
+          EOF
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add VMs/vms.yaml
+          git commit -m "Auto-provision VM: ${{ github.event.inputs.vm_name }} as $NEXT_REF"
+          git push
 
       - name: Check terragrunt HCL
         uses: gruntwork-io/terragrunt-action@v1
