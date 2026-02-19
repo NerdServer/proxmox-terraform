@@ -1,4 +1,6 @@
 name: Containers CICD
+permissions:
+  contents: write
 on:
   push:
     paths:
