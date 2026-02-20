@@ -108,6 +108,39 @@ jobs:
           git pull --rebase origin ${{ github.ref_name }}
           git push origin HEAD:${{ github.ref_name }}
 
+      - name: Install 1Password CLI    
+        uses: 1password/install-cli-action@v1
+
+      - name: Configure 1Password CLI  
+        uses: 1password/load-secrets-action/configure@v1
+        with:
+          connect-host: ${{ secrets.OP_CONNECT_HOST }}
+          connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
+
+      - name: Auto-Schedule Proxmox Nodes
+        uses: 1password/load-secrets-action@v1
+        with:
+            export-env: True
+        env:
+            TF_VAR_proxmox_api_token_id: op://secrets/ProxmoxAPI/username
+            TF_VAR_proxmox_api_token_secret: op://secrets/ProxmoxAPI/password
+            TF_VAR_proxmox_api_url: op://secrets/Terraform/host
+            
+      - name: Execute Auto-Scheduler
+        run: |
+          export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+          python3 .github/scripts/auto_scheduler.py VMs/vms.yaml
+          if git diff --exit-code VMs/vms.yaml; then
+            echo "No scheduling changes made."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add VMs/vms.yaml
+            git commit -m "chore(auto-scheduler): dynamically assign optimal target_node"
+            git pull --rebase origin ${{ github.ref_name }}
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+
       - name: Check terragrunt HCL
         uses: gruntwork-io/terragrunt-action@v1
         with:
