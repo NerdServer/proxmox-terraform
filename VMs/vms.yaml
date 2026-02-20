@@ -91,3 +91,12 @@ m9:
   disk_size: "30"
   storage: "ssd1"
   source_template: "ubuntu22-04-template"
+m10:
+  name: "Test"
+  target_node: "nerd-pve01"
+  ip: "0.0.0.0"
+  vcpu: "4"
+  memory: "16384"
+  disk_size: "30"
+  storage: "ssd1"
+  source_template: "ubuntu22-04-template"
