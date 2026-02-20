@@ -23,7 +23,7 @@ on:
       target_node:
         description: 'Target Proxmox Node (e.g., nerd-pve01)'
         required: false
-        default: 'nerd-pve01'
+        default: 'auto'
         type: string
       ip_address:
         description: 'IP Address (e.g., 10.0.40.24)'
@@ -45,9 +45,9 @@ on:
         default: '30'
         type: string
       storage:
-        description: 'Storage Pool (e.g., ssd1, ssd2)'
+        description: 'Storage Pool (e.g., pve-iscsi-lun0, ssd1)'
         required: false
-        default: 'ssd1'
+        default: 'pve-iscsi-lun0'
         type: string
       source_template:
         description: 'Source Template'

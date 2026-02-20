@@ -21,9 +21,9 @@ on:
         required: false
         type: string
       target_node:
-        description: 'Target Proxmox Node (e.g., nerd-pve03)'
+        description: 'Target Proxmox Node (e.g., auto)'
         required: false
-        default: 'nerd-pve04'
+        default: 'auto'
         type: string
       ip_address:
         description: 'IP Address (e.g., 10.0.40.24/24)'
