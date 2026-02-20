@@ -3,5 +3,5 @@ terraform {
 }
 
 inputs = {
-  vms = yamldecode(file("vms.yaml"))
+  vms = try(yamldecode(file("vms.yaml")), {})
 }

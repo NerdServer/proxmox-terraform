@@ -3,5 +3,5 @@ terraform {
 }
 
 inputs = {
-  lxc_containers = yamldecode(file("lxc.yaml"))
+  lxc_containers = try(yamldecode(file("lxc.yaml")), {})
 }
