@@ -141,7 +141,7 @@ jobs:
             TF_VAR_proxmox_api_url: op://secrets/Terraform/host
             AWS_ACCESS_KEY_ID: op://secrets/Terraform/garage_access_key
             AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/garage_secret_key
-            AWS_ENDPOINT_URL_S3: op://secrets/Terraform/minio_endpoint
+            AWS_ENDPOINT_URL_S3: op://secrets/Terraform/garage_endpoint
       - name: Init
         uses: gruntwork-io/terragrunt-action@v1
         with:
@@ -192,10 +192,10 @@ jobs:
               TF_VAR_proxmox_api_url: op://secrets/Terraform/host
               TF_VAR_AWS_ACCESS_KEY_ID: op://secrets/Terraform/garage_access_key
               TF_VAR_AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/garage_secret_key
-              TF_VAR_AWS_ENDPOINT_URL_S3: op://secrets/Terraform/minio_endpoint
+              TF_VAR_AWS_ENDPOINT_URL_S3: op://secrets/Terraform/garage_endpoint
               AWS_ACCESS_KEY_ID: op://secrets/Terraform/garage_access_key
               AWS_SECRET_ACCESS_KEY: op://secrets/Terraform/garage_secret_key
-              AWS_ENDPOINT_URL_S3: op://secrets/Terraform/minio_endpoint
+              AWS_ENDPOINT_URL_S3: op://secrets/Terraform/garage_endpoint
   
         - name: Init
           uses: gruntwork-io/terragrunt-action@v1
