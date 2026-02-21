@@ -18,7 +18,7 @@ m2:
   source_template: "ubuntu22-04-template"
 m3:
   name: "test_vm"
-  target_node: "auto"
+  target_node: "nerd-pve03"
   ip: "dhcp"
   vcpu: "4"
   memory: "16384"
