@@ -17,7 +17,7 @@ m2:
   storage: "pve-iscsi-lun0"
   source_template: "ubuntu22-04-template"
 m3:
-  name: "test_vm"
+  name: "test-vm-1"
   target_node: "nerd-pve03"
   ip: "dhcp"
   vcpu: "4"
@@ -26,7 +26,7 @@ m3:
   storage: "pve-iscsi-lun0"
   source_template: "ubuntu22-04-template"
 m4:
-  name: "test_vm"
+  name: "test-vm-2"
   target_node: "nerd-pve03"
   ip: "dhcp"
   vcpu: "4"
