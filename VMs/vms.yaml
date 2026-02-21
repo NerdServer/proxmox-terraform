@@ -10,7 +10,7 @@ m1:
   source_template: "ubuntu22-04-server-template"
 m2:
   name: "test-ubuntu-12"
-  target_node: "auto"
+  target_node: "nerd-pve03"
   ip: "dhcp"
   vcpu: "4"
   memory: "16384"
