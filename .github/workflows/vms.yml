@@ -53,7 +53,7 @@ on:
       source_template:
         description: 'Source Template'
         required: false
-        default: 'ubuntu22-04-template'
+        default: 'ubuntu22-04-server-template'
         type: string
 env:
   tf_version: '1.6.6'
