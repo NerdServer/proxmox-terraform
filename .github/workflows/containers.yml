@@ -26,8 +26,9 @@ on:
         default: 'auto'
         type: string
       ip_address:
-        description: 'IP Address (e.g., 10.0.40.24/24)'
+        description: 'IP Address (leave as dhcp for Auto-DHCP)'
         required: false
+        default: 'dhcp'
         type: string
       cores:
         description: 'CPU Cores'
