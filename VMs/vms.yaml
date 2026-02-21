@@ -16,3 +16,12 @@ m2:
   disk_size: "30"
   storage: "pve-iscsi-lun0"
   source_template: "ubuntu22-04-template"
+m3:
+  name: "test_vm"
+  target_node: "auto"
+  ip: "dhcp"
+  vcpu: "4"
+  memory: "16384"
+  disk_size: "30"
+  storage: "pve-iscsi-lun0"
+  source_template: "ubuntu22-04-template"
